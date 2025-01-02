@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -15,6 +15,15 @@ private:
     int Size;  //현재 요소의 개수
     int Capacity;   //배열의 크기
 
+    void resize() {
+        Capacity *= 2;
+        T* newData = new T[Capacity];
+        for (int i = 0; i < Size; i++) {
+            newData[i] = data[i];
+        }
+        delete[] data;
+        data = newData;
+    }
 
 public:
     // 기본 생성자는 크기 10을 생성해줘야함
@@ -41,6 +50,9 @@ public:
     // 원소 추가
     void push_back(const T& value) {
         if (Size == Capacity)
+        {
+            resize();
+        }
         data[Size++] = value;
     }
 
